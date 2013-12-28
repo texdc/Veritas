@@ -15,7 +15,7 @@ use Serializable;
 /**
  * Defines an enabled state for a given range of dates
  *
- * @link   https://github.com/VaughnVernon/IDDD_Samples/blob/master/iddd_identityaccess/src/main/java/com/saasovation/identityaccess/domain/model/identity/Enablement.java
+ * @link   https://github.com/VaughnVernon/IDDD_Samples
  * @author George D. Cooksey, III <texdc3@gmail.com>
  */
 class Enablement implements Serializable, JsonSerializable
@@ -54,9 +54,9 @@ class Enablement implements Serializable, JsonSerializable
      * @param DateTime|null $endDate
      */
     public function __construct(
-                 $enabled   = true,
+        $enabled = true,
         DateTime $startDate = null,
-        DateTime $endDate   = null
+        DateTime $endDate = null
     ) {
         $this->setEnabled($enabled);
         if (isset($startDate) || isset($endDate)) {
