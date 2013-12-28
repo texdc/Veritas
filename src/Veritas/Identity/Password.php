@@ -49,6 +49,20 @@ class Password implements Credential
     }
 
     /**
+     * Compare another password for equality
+     *
+     * @param  self $other the other password to compare
+     * @return bool
+     */
+    public function equals(self $other)
+    {
+        return (
+            $this->encryptedValue == $other->encryptedValue
+            && $this->cryptoService == $other->cryptoService
+        );
+    }
+
+    /**
      * Convert to a string
      *
      * @return string

@@ -48,6 +48,14 @@ class PasswordTest extends TestCase
         $this->assertTrue($subject->verify(static::PLAIN_TEXT));
     }
 
+    public function testEqualsReturnsBoolean()
+    {
+        $crypto = $this->getCryptoService($this->exactly(2));
+        $subject = new Password(static::PLAIN_TEXT, $crypto);
+        $test = new Password(static::PLAIN_TEXT, $crypto);
+        $this->assertTrue($subject->equals($test));
+    }
+
     public function testToStringReturnsFormattedString()
     {
         $crypto = $this->getCryptoService($this->once());
