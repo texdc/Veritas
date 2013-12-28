@@ -9,7 +9,7 @@
 namespace Veritas\Identity;
 
 /**
- * Register and identify users
+ * Register and identify identities
  *
  * @author George D. Cooksey, III <texdc3@gmail.com>
  */
