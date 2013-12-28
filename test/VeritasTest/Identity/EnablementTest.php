@@ -67,8 +67,8 @@ class EnablementTest extends TestCase
         $startDate = new DateTime('-1 day');
         $endDate = new DateTime('+1 day');
         $subject = new Enablement(true, $startDate, $endDate);
-        $this->assertEquals($startDate, $subject->getStartDate());
-        $this->assertEquals($endDate, $subject->getEndDate());
+        $this->assertEquals($startDate, $subject->startDate());
+        $this->assertEquals($endDate, $subject->endDate());
     }
 
     public function testIsExpiredReturnsFalseWithoutDates()

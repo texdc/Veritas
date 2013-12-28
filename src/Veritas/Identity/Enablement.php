@@ -102,7 +102,7 @@ class Enablement implements Serializable, JsonSerializable
     /**
      * @return DateTime
      */
-    public function getStartDate()
+    public function startDate()
     {
         return $this->startDate;
     }
@@ -110,7 +110,7 @@ class Enablement implements Serializable, JsonSerializable
     /**
      * @return DateTime
      */
-    public function getEndDate()
+    public function endDate()
     {
         return $this->endDate;
     }
