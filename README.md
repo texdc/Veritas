@@ -33,9 +33,7 @@ class User
         
         $this->setPassword(new Password($newPassword, $cryptoService));
         
-        $this->eventService->publish(
-            new PasswordChangedEvent($oldPassword, $this->password)
-        );
+        $this->eventService->publish(new PasswordChangedEvent($this->id));
     }
     
     public function verifyPassword(Password $password)
