@@ -29,11 +29,8 @@ class User
     public function changePassword($newPassword, CryptoService $cryptoService = null)
     {
         $cryptoService = $cryptoService ?: $this->password->cryptoService();
-        $oldPassword   = $this->password;
-        
         $this->setPassword(new Password($newPassword, $cryptoService));
-        
-        $this->eventService->publish(new PasswordChangedEvent($this->id));
+        $this->eventService->publish(new PasswordChangedEvent($this->userId));
     }
     
     public function verifyPassword(Password $password)
@@ -48,6 +45,9 @@ class User
     
     protected function setPassword(Password $password)
     {
+        if ($this->verifyPassword($password)) {
+            throw new IdenticalPasswordException;
+        }
         $this->password = $password;
     }
     
