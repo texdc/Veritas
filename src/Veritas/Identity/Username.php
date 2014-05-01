@@ -2,7 +2,7 @@
 /**
  * Username.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
@@ -15,11 +15,10 @@ use Veritas\Identity\Exception\UsernameLengthException;
  *
  * This is intended to be extended to also validate characters and words.
  *
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
 class Username implements Credential
 {
-
     /**#@+
      * Length constraints
      * @var int
@@ -41,9 +40,9 @@ class Username implements Credential
      */
     public function __construct($value)
     {
-        $this->assertMinimumLength($value);
-        $this->assertMaximumLength($value);
-        $this->value = (string) $value;
+        $this->value = trim($value);
+        static::GuardMinimumLength($this->value);
+        static::GuardMaximumLength($this->value);
     }
 
     /**
@@ -53,6 +52,17 @@ class Username implements Credential
     public function verify($value)
     {
         return ($this->value == $value);
+    }
+    
+    /**
+     * Compare another username for equality
+     * 
+     * @param  self $other the other username to compare
+     * @return bool
+     */
+    public function equals(self $other)
+    {
+        return ($this->value == $other->value);
     }
 
     /**
@@ -72,12 +82,10 @@ class Username implements Credential
      * @throws UsernameLengthException
      * @return void
      */
-    protected function assertMinimumLength($value)
+    public static function GuardMinimumLength($value)
     {
         if (strlen($value) < static::$minLength) {
-            throw new UsernameLengthException(
-                sprintf('Value must be a minimum of %u characters', static::$minLength)
-            );
+            throw UsernameLengthException::Minimum(static::$minLength);
         }
     }
 
@@ -88,12 +96,10 @@ class Username implements Credential
      * @throws UsernameLengthException
      * @return void
      */
-    protected function assertMaximumLength($value)
+    public static function GuardMaximumLength($value)
     {
         if (strlen($value) > static::$maxLength) {
-            throw new UsernameLengthException(
-                sprintf('Value must be a maximum of %u characters', static::$maxLength)
-            );
+            throw UsernameLengthException::Maximum(static::$maxLength);
         }
     }
 }
