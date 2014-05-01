@@ -2,19 +2,13 @@
     "name": "texdc/veritas",
     "description": "Identity and Access Control",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "George D. Cooksey, III",
-            "email": "texdc3@gmail.com"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
 	"php": "~5.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "~3.8",
+        "phpunit/phpunit": "~4.0",
         "phpmd/phpmd": "~1.4",
         "squizlabs/php_codesniffer": "~1.4",
         "satooshi/php-coveralls": "~0.6"
