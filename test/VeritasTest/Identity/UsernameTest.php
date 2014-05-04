@@ -31,19 +31,13 @@ class UsernameTest extends TestCase
 
     public function testConstructChecksMinimumLength()
     {
-        $this->setExpectedException(
-            'Veritas\Identity\Exception\UsernameLengthException',
-            'Value must be a minimum of 8 characters'
-        );
+        $this->setExpectedException('Veritas\Identity\Exception\UsernameLengthException');
         new Username('bad');
     }
 
     public function testConstructChecksMaximumLength()
     {
-        $this->setExpectedException(
-            'Veritas\Identity\Exception\UsernameLengthException',
-            'Value must be a maximum of 125 characters'
-        );
+        $this->setExpectedException('Veritas\Identity\Exception\UsernameLengthException');
         new Username(
             'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
             . 'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
@@ -54,5 +48,11 @@ class UsernameTest extends TestCase
     {
         $subject = new Username('username');
         $this->assertEquals('username', (string) $subject);
+    }
+    
+    public function testEqualsReturnsBool()
+    {
+        $subject = new Username('username');
+        $this->assertFalse($subject->equals(new Username('test failure')));
     }
 }

@@ -2,8 +2,6 @@
     "name": "texdc/veritas",
     "description": "Identity and Access Control",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
 	"php": "~5.4"
     },
@@ -18,8 +16,7 @@
     },
     "autoload": {
 	"psr-0": {
-	    "Veritas\\": "src/",
-	    "VeritasTest\\": "test/"
+	    "Veritas\\": "src/"
 	}
     }
 }
