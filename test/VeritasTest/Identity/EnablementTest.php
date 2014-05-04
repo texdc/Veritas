@@ -2,7 +2,7 @@
 /**
  * EnablementTest.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
@@ -29,19 +29,13 @@ class EnablementTest extends TestCase
         $this->assertInstanceOf('JsonSerializable', new Enablement);
     }
 
-    public function testConstructWithEnabledFalse()
-    {
-        $subject = new Enablement(false);
-        $this->assertFalse($subject->isEnabled());
-    }
-
     public function testConstructRequiresEndDateWithStartDate()
     {
         $this->setExpectedException(
             'InvalidArgumentException',
             Enablement::ERROR_MISSING_ENDDATE
         );
-        $subject = new Enablement(true, new DateTime);
+        new Enablement(false, new DateTime);
     }
 
     public function testConstructRequiresStartDateWithEndDate()
@@ -50,7 +44,7 @@ class EnablementTest extends TestCase
             'InvalidArgumentException',
             Enablement::ERROR_MISSING_STARTDATE
         );
-        $subject = new Enablement(true, null, new DateTime);
+        new Enablement(true, null, new DateTime);
     }
 
     public function testConstructRequiresValidDates()
@@ -59,38 +53,35 @@ class EnablementTest extends TestCase
             'DomainException',
             Enablement::ERROR_INVALID_DATES
         );
-        $subject = new Enablement(true, new DateTime, new DateTime('-1 day'));
+        new Enablement(false, new DateTime, new DateTime('-1 day'));
     }
 
     public function testConstructWithBothDates()
     {
         $startDate = new DateTime('-1 day');
-        $endDate = new DateTime('+1 day');
-        $subject = new Enablement(true, $startDate, $endDate);
-        $this->assertEquals($startDate, $subject->startDate());
-        $this->assertEquals($endDate, $subject->endDate());
+        $endDate   = new DateTime('+1 day');
+        $subject   = new Enablement(true, $startDate, $endDate);
+        $this->assertInstanceOf('Veritas\Identity\Enablement', $subject);
     }
 
-    public function testIsExpiredReturnsFalseWithoutDates()
+    public function testValidateChecksEnabledState()
     {
-        $subject = new Enablement;
-        $this->assertFalse($subject->isExpired());
+        $subject = new Enablement(false);
+        $this->assertFalse($subject->validate());
     }
 
-    public function testIsExpiredChecksDates()
-    {
-        $startDate = new DateTime('+1 day');
-        $endDate = new DateTime('+2 days');
-        $subject = new Enablement(true, $startDate, $endDate);
-        $this->assertTrue($subject->isExpired());
-    }
-
-    public function testIsValidChecksDates()
+    public function testValidateWithNullDate()
     {
         $startDate = new DateTime('-2 days');
-        $endDate = new DateTime('-1 day');
-        $subject = new Enablement(true, $startDate, $endDate);
-        $this->assertFalse($subject->isValid());
+        $endDate   = new DateTime('-1 day');
+        $subject   = new Enablement(true, $startDate, $endDate);
+        $this->assertFalse($subject->validate());
+    }
+
+    public function testValidateWithGivenDate()
+    {
+        $subject = new Enablement(true);
+        $this->assertTrue($subject->validate(new DateTime('+3 days')));
     }
 
     public function testEqualsChecksProperties()

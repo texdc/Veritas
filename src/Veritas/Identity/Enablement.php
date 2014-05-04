@@ -2,8 +2,8 @@
 /**
  * Enablement.php
  *
+ * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
- * @copyright 2013 George D. Cooksey, III
  */
 
 namespace Veritas\Identity;
@@ -16,11 +16,10 @@ use Serializable;
  * Defines an enabled state for a given range of dates
  *
  * @link   https://github.com/VaughnVernon/IDDD_Samples
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
 class Enablement implements Serializable, JsonSerializable
 {
-
     /**#@+
      * Error constants
      * @var string
@@ -70,49 +69,31 @@ class Enablement implements Serializable, JsonSerializable
     }
 
     /**
+     * Check enabled status and optional date for validity
+     *
+     * @param  DateTime|null $aDate optional, defaults to 'now'
      * @return bool
      */
-    public function isEnabled()
+    public function validate(DateTime $aDate = null)
     {
-        return $this->enabled;
+        return ($this->enabled && $this->validateDate($aDate));
     }
 
     /**
-     * @param  DateTime|null $onDate optional, defaults to 'now'
+     * Check optional date for validity
+     *
+     * Always returns true if start and end dates are not set.
+     *
+     * @param  DateTime|null $aDate optional, defaults to 'now'
      * @return bool
      */
-    public function isExpired(DateTime $onDate = null)
+    private function validateDate(DateTime $aDate = null)
     {
         if (isset($this->startDate) && isset($this->endDate)) {
-            $onDate = $onDate ?: new DateTime;
-            return ($onDate < $this->startDate || $onDate > $this->endDate);
+            $aDate = $aDate ?: new DateTime;
+            return ($aDate >= $this->startDate && $aDate <= $this->endDate);
         }
-        return false;
-    }
-
-    /**
-     * @param  DateTime|null $onDate optional, defaults to 'now'
-     * @return bool
-     */
-    public function isValid(DateTime $onDate = null)
-    {
-        return ($this->isEnabled() && !$this->isExpired($onDate));
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function startDate()
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function endDate()
-    {
-        return $this->endDate;
+        return true;
     }
 
     /**

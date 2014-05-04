@@ -2,7 +2,7 @@
 /**
  * EnabledTraitTest.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
@@ -18,32 +18,24 @@ class EnabledTraitTest extends TestCase
         $this->assertTrue(trait_exists('Veritas\Identity\EnabledTrait'));
     }
 
-    public function testEnablementReturnsEnablement()
+    public function testVerifyEnabledDoesNotRequireEnablement()
     {
         $subject = new TestableEnabled;
-        $enablement = $this->getEnablement();
-        $subject->defineEnablement($enablement);
-        $this->assertSame($enablement, $subject->enablement());
+        $this->assertFalse($subject->verifyEnabled());
     }
 
-    public function testIsEnabledChecksEnablementValidity()
+    public function testVerifyEnabledChecksEnablementValidity()
     {
-        $enablement = $this->getEnablement();
+        $enablement = $this->getMockBuilder('Veritas\Identity\Enablement')
+            ->disableOriginalConstructor()
+            ->getMock();
         $enablement
             ->expects($this->once())
-            ->method('isValid')
+            ->method('validate')
             ->with(null)
             ->will($this->returnValue(true));
 
-        $subject = new TestableEnabled;
-        $subject->defineEnablement($enablement);
-        $this->assertTrue($subject->isEnabled());
-    }
-
-    public function getEnablement()
-    {
-        return $this->getMockBuilder('Veritas\Identity\Enablement')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+        $subject = new TestableEnabled($enablement);
+        $this->assertTrue($subject->verifyEnabled());
     }
 }
