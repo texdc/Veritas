@@ -32,8 +32,8 @@ class EnablementTest extends TestCase
     public function testConstructRequiresEndDateWithStartDate()
     {
         $this->setExpectedException(
-            'InvalidArgumentException',
-            Enablement::ERROR_MISSING_ENDDATE
+            'Veritas\Identity\Exception\EnablementDateException',
+            "The end date must be provided"
         );
         new Enablement(false, new DateTime);
     }
@@ -41,8 +41,8 @@ class EnablementTest extends TestCase
     public function testConstructRequiresStartDateWithEndDate()
     {
         $this->setExpectedException(
-            'InvalidArgumentException',
-            Enablement::ERROR_MISSING_STARTDATE
+            'Veritas\Identity\Exception\EnablementDateException',
+            "The start date must be provided"
         );
         new Enablement(true, null, new DateTime);
     }
@@ -50,8 +50,8 @@ class EnablementTest extends TestCase
     public function testConstructRequiresValidDates()
     {
         $this->setExpectedException(
-            'DomainException',
-            Enablement::ERROR_INVALID_DATES
+            'Veritas\Identity\Exception\EnablementDateException',
+            'The start date must preceed the end date'
         );
         new Enablement(false, new DateTime, new DateTime('-1 day'));
     }
@@ -123,9 +123,16 @@ class EnablementTest extends TestCase
 
     public function testUnserializeEqualsOriginal()
     {
-        $startDate = new DateTime('-1 day');
-        $endDate = new DateTime('+1 day');
-        $subject = new Enablement(true, $startDate, $endDate);
+        $startDate  = new DateTime('-1 day');
+        $endDate    = new DateTime('+1 day');
+        $subject    = new Enablement(true, $startDate, $endDate);
+        $serialized = serialize($subject);
+        $this->assertTrue($subject->equals(unserialize($serialized)));
+    }
+
+    public function testUnserializeWithoutDates()
+    {
+        $subject    = new Enablement(false);
         $serialized = serialize($subject);
         $this->assertTrue($subject->equals(unserialize($serialized)));
     }
