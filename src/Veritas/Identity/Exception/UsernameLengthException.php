@@ -22,28 +22,28 @@ class UsernameLengthException extends DomainException
      * @var string
      */
     const TYPE_DEFAULT = 'length';
-    const TYPE_MAX     = 'maximum';
-    const TYPE_MIN     = 'minimum';
+    const TYPE_MAXIMUM = 'maximum';
+    const TYPE_MINIMUM = 'minimum';
     /**#@-*/
-    
+
     /**
      * Valid types
      * @var string[]
      */
     protected $validTypes = [
         self::TYPE_DEFAULT,
-        self::TYPE_MAX,
-        self::TYPE_MIN
+        self::TYPE_MAXIMUM,
+        self::TYPE_MINIMUM
     ];
-    
+
     /**
      * @var string
      */
     protected $messagePattern = 'Value must have a %s of %u characters';
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param  int    $length the valid length value
      * @param  string $type   a valid length type
      */
@@ -53,26 +53,26 @@ class UsernameLengthException extends DomainException
         $message = sprintf($this->messagePattern, $type, $length);
         parent::__construct($message);
     }
-    
+
     /**
      * Builds a maximum length exception
-     * 
+     *
      * @param  int $length the valid length value
      * @return self
      */
-    public static function Maximum($length)
+    public static function maximum($length)
     {
-        return new static($length, static::TYPE_MAX);
+        return new static($length, static::TYPE_MAXIMUM);
     }
-    
+
     /**
      * Builds a minimum length exception
-     * 
+     *
      * @param  int $length the valid length value
      * @return self
      */
-    public static function Minimum($length)
+    public static function minimum($length)
     {
-        return new static($length, static::TYPE_MIN);
+        return new static($length, static::TYPE_MINIMUM);
     }
 }

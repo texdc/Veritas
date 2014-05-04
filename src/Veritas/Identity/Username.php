@@ -41,8 +41,8 @@ class Username implements Credential
     public function __construct($value)
     {
         $this->value = trim($value);
-        static::GuardMinimumLength($this->value);
-        static::GuardMaximumLength($this->value);
+        static::guardMinimumLength($this->value);
+        static::guardMaximumLength($this->value);
     }
 
     /**
@@ -53,10 +53,10 @@ class Username implements Credential
     {
         return ($this->value == $value);
     }
-    
+
     /**
      * Compare another username for equality
-     * 
+     *
      * @param  self $other the other username to compare
      * @return bool
      */
@@ -82,10 +82,10 @@ class Username implements Credential
      * @throws UsernameLengthException
      * @return void
      */
-    public static function GuardMinimumLength($value)
+    public static function guardMinimumLength($value)
     {
         if (strlen($value) < static::$minLength) {
-            throw UsernameLengthException::Minimum(static::$minLength);
+            throw UsernameLengthException::minimum(static::$minLength);
         }
     }
 
@@ -96,10 +96,10 @@ class Username implements Credential
      * @throws UsernameLengthException
      * @return void
      */
-    public static function GuardMaximumLength($value)
+    public static function guardMaximumLength($value)
     {
         if (strlen($value) > static::$maxLength) {
-            throw UsernameLengthException::Maximum(static::$maxLength);
+            throw UsernameLengthException::maximum(static::$maxLength);
         }
     }
 }
