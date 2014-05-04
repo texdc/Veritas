@@ -1,16 +1,22 @@
 language: php
 
 php:
-  - 5.4
+  - 5.6
   - 5.5
+  - 5.4
+  
+matrix:
+  allow_failures:
+    - php: 5.6
 
 before_script:
   - composer self-update
-  - composer update --prefer-source --dev
+  - composer install --dev --prefer-source
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml
-  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./test/
+  - mkdir -p build/logs
+  - vendor/bin/phpunit
+  - vendor/bin/phpcs --standard=PSR2 src/ test/
 
-#after_script:
-#  - php vendor/bin/coveralls -v
+after_script:
+  - php vendor/bin/coveralls -v
