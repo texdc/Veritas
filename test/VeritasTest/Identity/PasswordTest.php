@@ -26,7 +26,7 @@ class PasswordTest extends TestCase
     public function testClassImplementsCredential()
     {
         $subject = new Password(static::PLAIN_TEXT, $this->getCryptoService($this->once()));
-        $this->assertInstanceOf('Veritas\Identity\Credential', $subject);
+        $this->assertInstanceOf('Veritas\Identity\CredentialInterface', $subject);
     }
 
     public function testConstructEncryptsValue()
@@ -67,7 +67,7 @@ class PasswordTest extends TestCase
 
     protected function getCryptoService(Matcher $matcher)
     {
-        $crypto = $this->getMockForAbstractClass('Veritas\Identity\CryptoService');
+        $crypto = $this->getMockForAbstractClass('Veritas\Identity\CryptoServiceInterface');
         $crypto
             ->expects($matcher)
             ->method('encrypt')

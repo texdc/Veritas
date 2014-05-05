@@ -17,7 +17,7 @@ use Veritas\Identity\Exception\UsernameLengthException;
  *
  * @author George D. Cooksey, III
  */
-class Username implements Credential
+class Username implements CredentialInterface
 {
     /**#@+
      * Length constraints
