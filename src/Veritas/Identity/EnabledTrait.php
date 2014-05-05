@@ -2,7 +2,7 @@
 /**
  * EnabledTrait.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
@@ -13,53 +13,28 @@ use DateTime;
 /**
  * Provides an {@link Enablement}
  *
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
 trait EnabledTrait
 {
-
-    /**
-     * @var Enablement
-     */
-    private $enablement;
-
-
-    /**
-     * Define the enablement
-     *
-     * @param    Enablement $enablement
-     * @internal Abstract to accomodate potential event mechanisms
-     */
-    abstract public function defineEnablement(Enablement $enablement);
-
-    /**
-     * Get the enablement
-     *
-     * @return Enablement
-     */
-    public function enablement()
-    {
-        return $this->enablement;
-    }
-
     /**
      * Is the object enabled?
      *
      * @param  DateTime|null $onDate optional, defaults to 'now'
-     * @return bool
+     * @return bool false if the enablement is not set or not valid
      */
-    public function isEnabled(DateTime $onDate = null)
+    public function verifyEnabled(DateTime $onDate = null)
     {
-        return (isset($this->enablement) && $this->enablement->isValid($onDate));
+        return (isset($this->enablement) && $this->enablement->validate($onDate));
     }
 
     /**
      * Set the enablement
      *
-     * @param  Enablement $enablement the enablement to set
+     * @param  Enablement|null $enablement the enablement to set
      * @return void
      */
-    private function setEnablement(Enablement $enablement)
+    private function setEnablement(Enablement $enablement = null)
     {
         $this->enablement = $enablement;
     }

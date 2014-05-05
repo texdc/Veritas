@@ -2,8 +2,8 @@
 /**
  * Enablement.php
  *
+ * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
- * @copyright 2013 George D. Cooksey, III
  */
 
 namespace Veritas\Identity;
@@ -11,25 +11,16 @@ namespace Veritas\Identity;
 use DateTime;
 use JsonSerializable;
 use Serializable;
+use Veritas\Identity\Exception\EnablementDateException;
 
 /**
  * Defines an enabled state for a given range of dates
  *
  * @link   https://github.com/VaughnVernon/IDDD_Samples
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
 class Enablement implements Serializable, JsonSerializable
 {
-
-    /**#@+
-     * Error constants
-     * @var string
-     */
-    const ERROR_MISSING_STARTDATE = 'The start date must be provided';
-    const ERROR_MISSING_ENDDATE   = 'The end date must be provided';
-    const ERROR_INVALID_DATES     = 'The start date must be before the end date';
-    /**#@- */
-
     /**
      * @var bool
      */
@@ -58,61 +49,71 @@ class Enablement implements Serializable, JsonSerializable
         DateTime $startDate = null,
         DateTime $endDate = null
     ) {
-        $this->setEnabled($enabled);
+        $this->enabled = (bool) $enabled;
         if (isset($startDate) || isset($endDate)) {
-            $this->assertNotNull($startDate, static::ERROR_MISSING_STARTDATE);
-            $this->assertNotNull($endDate, static::ERROR_MISSING_ENDDATE);
-            $this->assertFalse($startDate > $endDate, static::ERROR_INVALID_DATES);
+            static::guardNullDate('start', $startDate);
+            static::guardNullDate('end', $endDate);
+            static::guardValidRange($startDate, $endDate);
 
-            $this->setEndDate($endDate);
-            $this->setStartDate($startDate);
+            $this->startDate = $startDate;
+            $this->endDate   = $endDate;
         }
     }
 
     /**
-     * @return bool
+     * Ensure a date is not null
+     *
+     * @param  string        $type start or end
+     * @param  DateTime|null $date the date to check
+     * @throws EnablementDateException
      */
-    public function isEnabled()
+    public static function guardNullDate($type, DateTime $date = null)
     {
-        return $this->enabled;
+        if (!isset($date)) {
+            throw EnablementDateException::missingDate($type);
+        }
     }
 
     /**
-     * @param  DateTime|null $onDate optional, defaults to 'now'
+     * Ensure the start date preceeds the end date
+     *
+     * @param  DateTime $start
+     * @param  DateTime $end
+     * @throws EnablementDateException
+     */
+    public static function guardValidRange(DateTime $start, DateTime $end)
+    {
+        if ($start >= $end) {
+            throw EnablementDateException::invalidRange();
+        }
+    }
+
+    /**
+     * Check enabled status and optional date for validity
+     *
+     * @param  DateTime|null $aDate optional, defaults to 'now'
      * @return bool
      */
-    public function isExpired(DateTime $onDate = null)
+    public function validate(DateTime $aDate = null)
+    {
+        return ($this->enabled && $this->validateDate($aDate));
+    }
+
+    /**
+     * Check optional date for validity
+     *
+     * Always returns true if start and end dates are not set.
+     *
+     * @param  DateTime|null $aDate optional, defaults to 'now'
+     * @return bool
+     */
+    private function validateDate(DateTime $aDate = null)
     {
         if (isset($this->startDate) && isset($this->endDate)) {
-            $onDate = $onDate ?: new DateTime;
-            return ($onDate < $this->startDate || $onDate > $this->endDate);
+            $aDate = $aDate ?: new DateTime;
+            return ($aDate >= $this->startDate && $aDate <= $this->endDate);
         }
-        return false;
-    }
-
-    /**
-     * @param  DateTime|null $onDate optional, defaults to 'now'
-     * @return bool
-     */
-    public function isValid(DateTime $onDate = null)
-    {
-        return ($this->isEnabled() && !$this->isExpired($onDate));
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function startDate()
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function endDate()
-    {
-        return $this->endDate;
+        return true;
     }
 
     /**
@@ -168,56 +169,8 @@ class Enablement implements Serializable, JsonSerializable
     public function unserialize($serialized)
     {
         $data = unserialize($serialized);
-        $this->setEnabled($data['enabled']);
-        $this->setEndDate($data['endDate']);
-        $this->setStartDate($data['startDate']);
-    }
-
-    /**
-     * @param bool $enabled
-     */
-    private function setEnabled($enabled)
-    {
-        $this->enabled = (bool) $enabled;
-    }
-
-    /**
-     * @param DateTime|null $endDate
-     */
-    private function setEndDate(DateTime $endDate = null)
-    {
-        $this->endDate = $endDate;
-    }
-
-    /**
-     * @param DateTime|null $startDate
-     */
-    private function setStartDate(DateTime $startDate = null)
-    {
-        $this->startDate = $startDate;
-    }
-
-    /**
-     * @param mixed  $value
-     * @param string $message
-     * @throws \InvalidArgumentException
-     */
-    private function assertNotNull($value, $message)
-    {
-        if (is_null($value)) {
-            throw new \InvalidArgumentException($message);
-        }
-    }
-
-    /**
-     * @param bool   $statement
-     * @param string $message
-     * @throws \DomainException
-     */
-    private function assertFalse($statement, $message)
-    {
-        if ($statement !== false) {
-            throw new \DomainException($message);
-        }
+        $this->enabled   = $data['enabled'];
+        $this->endDate   = $data['endDate'];
+        $this->startDate = $data['startDate'];
     }
 }
