@@ -2,7 +2,7 @@
 /**
  * Credential.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
@@ -11,7 +11,7 @@ namespace Veritas\Identity;
 /**
  * Used to authenticate an identity
  *
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
 interface Credential
 {
