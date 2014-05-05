@@ -20,7 +20,7 @@ class UsernameTest extends TestCase
 
     public function testClassImplementsCredential()
     {
-        $this->assertInstanceOf('Veritas\Identity\Credential', new Username('username'));
+        $this->assertInstanceOf('Veritas\Identity\CredentialInterface', new Username('username'));
     }
 
     public function testConstructSetsValue()
@@ -49,7 +49,7 @@ class UsernameTest extends TestCase
         $subject = new Username('username');
         $this->assertEquals('username', (string) $subject);
     }
-    
+
     public function testEqualsReturnsBool()
     {
         $subject = new Username('username');

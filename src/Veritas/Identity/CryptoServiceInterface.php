@@ -1,6 +1,6 @@
 <?php
 /**
- * CryptoService.php
+ * CryptoServiceInterface.php
  *
  * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -16,7 +16,7 @@ namespace Veritas\Identity;
  *
  * @author George D. Cooksey, III
  */
-interface CryptoService
+interface CryptoServiceInterface
 {
     /**
      * Encrypt a plainText value

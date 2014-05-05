@@ -1,6 +1,6 @@
 <?php
 /**
- * Authority.php
+ * AuthorityInterface.php
  *
  * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -13,14 +13,14 @@ namespace Veritas\Identity;
  *
  * @author George D. Cooksey, III
  */
-interface Authority
+interface AuthorityInterface
 {
     /**
      * Register a new set of credentials to an identity
      *
-     * @param Credential|Credential[] $credentials
+     * @param CredentialInterface|CredentialInterface[] $credentials
      *
-     * @return Identity
+     * @return IdentityInterface
      */
     public function register($credentials);
 
@@ -28,9 +28,9 @@ interface Authority
      * Identify a supposed identity and credentials
      *
      * @param mixed                   $identity
-     * @param Credential|Credential[] $credentials
+     * @param CredentialInterface|CredentialInterface[] $credentials
      *
-     * @return Identity
+     * @return IdentityInterface
      */
     public function identify($identity, $credentials);
 }

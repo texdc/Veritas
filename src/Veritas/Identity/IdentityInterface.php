@@ -1,6 +1,6 @@
 <?php
 /**
- * Identity.php
+ * IdentityInterface.php
  *
  * @copyright 2014 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -13,7 +13,7 @@ namespace Veritas\Identity;
  *
  * @author George D. Cooksey, III
  */
-interface Identity
+interface IdentityInterface
 {
     /**
      * The identifier
@@ -25,15 +25,15 @@ interface Identity
     /**
      * The credentials
      *
-     * @return Credential[]
+     * @return CredentialInterface[]
      */
     public function credentials();
 
     /**
      * Is the credential contained?
      *
-     * @param  Credential $credential
+     * @param  CredentialInterface $credential
      * @return bool
      */
-    public function hasCredential(Credential $credential);
+    public function hasCredential(CredentialInterface $credential);
 }
