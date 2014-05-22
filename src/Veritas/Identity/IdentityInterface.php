@@ -16,24 +16,17 @@ namespace Veritas\Identity;
 interface IdentityInterface
 {
     /**
-     * The identifier
+     * Get the identifier
      *
      * @return mixed
      */
-    public function id();
+    public function identify();
 
     /**
-     * The credentials
+     * Is the credential valid?
      *
-     * @return CredentialInterface[]
-     */
-    public function credentials();
-
-    /**
-     * Is the credential contained?
-     *
-     * @param  CredentialInterface $credential
+     * @param  CredentialInterface $aCredential
      * @return bool
      */
-    public function hasCredential(CredentialInterface $credential);
+    public function validate(CredentialInterface $aCredential);
 }
