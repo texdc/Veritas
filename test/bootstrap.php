@@ -12,5 +12,3 @@ $loader = require 'vendor/autoload.php';
 if (!isset($loader)) {
     throw new RuntimeException('vendor/autoload.php could not be found.');
 }
-
-$loader->add('VeritasTest\\', __DIR__);
