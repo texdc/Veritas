@@ -5,7 +5,7 @@
 
     <testsuites>
         <testsuite name="Veritas">
-            <directory suffix="Test.php">./test/VeritasTest</directory>
+            <directory suffix="Test.php">./test</directory>
         </testsuite>
     </testsuites>
 
@@ -17,7 +17,7 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/Veritas</directory>
+            <directory suffix=".php">./src</directory>
             <exclude>
                 <directory>./vendor</directory>
                 <directory>./test</directory>
