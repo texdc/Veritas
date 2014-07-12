@@ -18,23 +18,36 @@ use DateTime;
 trait EnabledTrait
 {
     /**
+     * @var Enablement
+     */
+    private $enablement;
+
+    /**
      * Is the object enabled?
      *
      * @param  DateTime|null $onDate optional, defaults to 'now'
-     * @return bool false if the enablement is not set or not valid
+     * @return bool false if the enablement is set and not valid
      */
-    public function verifyEnabled(DateTime $onDate = null)
+    public function isEnabled(DateTime $onDate = null)
     {
-        return (isset($this->enablement) && $this->enablement->validate($onDate));
+        return (!isset($this->enablement) || $this->enablement->isValid($onDate));
     }
+
+    /**
+     * Define an enablement
+     *
+     * @param    Enablement $anEnablement
+     * @internal left abstract to afford events
+     */
+    abstract public function defineEnablement(Enablement $anEnablement);
 
     /**
      * Set the enablement
      *
-     * @param  Enablement|null $enablement the enablement to set
+     * @param  Enablement $enablement the enablement to set
      * @return void
      */
-    private function setEnablement(Enablement $enablement = null)
+    private function setEnablement(Enablement $enablement)
     {
         $this->enablement = $enablement;
     }

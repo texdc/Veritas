@@ -9,15 +9,14 @@
 namespace VeritasTest\Identity\TestAsset;
 
 use Veritas\Identity\Enablement;
+use Veritas\Identity\EnabledInterface;
 
-class TestableEnabled
+class TestableEnabled implements EnabledInterface
 {
     use \Veritas\Identity\EnabledTrait;
 
-    private $enablement;
-
-    public function __construct(Enablement $enablement = null)
+    public function defineEnablement(Enablement $anEnablement)
     {
-        $this->setEnablement($enablement);
+        $this->setEnablement($anEnablement);
     }
 }

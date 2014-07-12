@@ -9,33 +9,28 @@
 namespace VeritasTest\Identity;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Veritas\Identity\Enablement;
 use VeritasTest\Identity\TestAsset\TestableEnabled;
 
 class EnabledTraitTest extends TestCase
 {
+    const TRAIT_FQCN = 'Veritas\Identity\EnabledTrait';
+
     public function testTraitExists()
     {
-        $this->assertTrue(trait_exists('Veritas\Identity\EnabledTrait'));
+        $this->assertTrue(trait_exists(self::TRAIT_FQCN));
     }
 
-    public function testVerifyEnabledDoesNotRequireEnablement()
+    public function testIsEnabledDoesNotRequireEnablement()
     {
-        $subject = new TestableEnabled;
-        $this->assertFalse($subject->verifyEnabled());
+        $subject = $this->getMockForTrait(self::TRAIT_FQCN);
+        $this->assertTrue($subject->isEnabled());
     }
 
-    public function testVerifyEnabledChecksEnablementValidity()
+    public function testIsEnabledChecksDefinedEnablement()
     {
-        $enablement = $this->getMockBuilder('Veritas\Identity\Enablement')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $enablement
-            ->expects($this->once())
-            ->method('validate')
-            ->with(null)
-            ->will($this->returnValue(true));
-
-        $subject = new TestableEnabled($enablement);
-        $this->assertTrue($subject->verifyEnabled());
+        $subject = new TestableEnabled();
+        $subject->defineEnablement(new Enablement(false));
+        $this->assertFalse($subject->isEnabled());
     }
 }
