@@ -64,32 +64,56 @@ class EnablementTest extends TestCase
         $this->assertInstanceOf('Veritas\Identity\Enablement', $subject);
     }
 
-    public function testValidateChecksEnabledState()
+    public function testIsValidChecksEnabledState()
     {
         $subject = new Enablement(false);
-        $this->assertFalse($subject->validate());
+        $this->assertFalse($subject->isValid());
     }
 
-    public function testValidateWithNullDate()
+    public function testIsValidWithNullDate()
     {
         $startDate = new DateTime('-2 days');
         $endDate   = new DateTime('-1 day');
         $subject   = new Enablement(true, $startDate, $endDate);
-        $this->assertFalse($subject->validate());
+        $this->assertFalse($subject->isValid());
     }
 
-    public function testValidateWithGivenDate()
+    public function testIsValidWithGivenDate()
     {
-        $subject = new Enablement(true);
-        $this->assertTrue($subject->validate(new DateTime('+3 days')));
+        $subject = new Enablement();
+        $this->assertTrue($subject->isValid(new DateTime('+3 days')));
     }
 
-    public function testEqualsChecksProperties()
-    {
+    public function testIsEnabledReturnsEnabledState() {
+        $subject = new Enablement();
+        $this->assertTrue($subject->isEnabled());
+    }
+
+    public function testIsTemporalChecksDates() {
+        $subject = new Enablement(false, new DateTime('-1 day'), new DateTime('+1 day'));
+        $this->assertTrue($subject->isTemporal());
+    }
+
+    public function testStartDateReturnsDateTime() {
         $startDate = new DateTime('-1 day');
+        $subject   = new Enablement(false, $startDate, new DateTime('+1 day'));
+        $this->assertSame($startDate, $subject->startDate());
+    }
+
+    public function testEndDateReturnsDateTime() {
         $endDate = new DateTime('+1 day');
-        $subject = new Enablement(true, $startDate, $endDate);
-        $this->assertFalse($subject->equals(new Enablement));
+        $subject = new Enablement(false, new DateTime('-1 day'), $endDate);
+        $this->assertSame($endDate, $subject->endDate());
+    }
+
+    public function testDurationWithDates() {
+        $subject = new Enablement(false, new DateTime('-1 day'), new DateTime('+1 day'));
+        $this->assertInstanceOf('DateInterval', $subject->duration());
+    }
+
+    public function testDurationWithoutDates() {
+        $subject = new Enablement();
+        $this->assertNull($subject->duration());
     }
 
     public function testToString()
@@ -127,13 +151,13 @@ class EnablementTest extends TestCase
         $endDate    = new DateTime('+1 day');
         $subject    = new Enablement(true, $startDate, $endDate);
         $serialized = serialize($subject);
-        $this->assertTrue($subject->equals(unserialize($serialized)));
+        $this->assertEquals($subject, unserialize($serialized));
     }
 
     public function testUnserializeWithoutDates()
     {
         $subject    = new Enablement(false);
         $serialized = serialize($subject);
-        $this->assertTrue($subject->equals(unserialize($serialized)));
+        $this->assertEquals($subject, unserialize($serialized));
     }
 }
