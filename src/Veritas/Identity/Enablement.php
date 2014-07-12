@@ -93,7 +93,8 @@ final class Enablement implements Serializable, JsonSerializable
      *
      * @return bool
      */
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return $this->enabled;
     }
 
@@ -102,7 +103,8 @@ final class Enablement implements Serializable, JsonSerializable
      *
      * @return bool
      */
-    public function isTemporal() {
+    public function isTemporal()
+    {
         return isset($this->startDate) && isset($this->endDate);
     }
 
@@ -111,7 +113,8 @@ final class Enablement implements Serializable, JsonSerializable
      *
      * @return DateTime|null
      */
-    public function startDate() {
+    public function startDate()
+    {
         return $this->startDate;
     }
 
@@ -120,7 +123,8 @@ final class Enablement implements Serializable, JsonSerializable
      *
      * @return DateTime|null
      */
-    public function endDate() {
+    public function endDate()
+    {
         return $this->endDate;
     }
 
@@ -129,7 +133,8 @@ final class Enablement implements Serializable, JsonSerializable
      *
      * @return \DateInterval|null
      */
-    public function duration() {
+    public function duration()
+    {
         if ($this->isTemporal()) {
             return $this->startDate->diff($this->endDate, true);
         }

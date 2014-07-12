@@ -15,7 +15,8 @@ class TestableEnabled implements EnabledInterface
 {
     use \Veritas\Identity\EnabledTrait;
 
-    public function defineEnablement(Enablement $anEnablement) {
+    public function defineEnablement(Enablement $anEnablement)
+    {
         $this->setEnablement($anEnablement);
     }
 }

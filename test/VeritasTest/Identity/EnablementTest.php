@@ -84,34 +84,40 @@ class EnablementTest extends TestCase
         $this->assertTrue($subject->isValid(new DateTime('+3 days')));
     }
 
-    public function testIsEnabledReturnsEnabledState() {
+    public function testIsEnabledReturnsEnabledState()
+    {
         $subject = new Enablement();
         $this->assertTrue($subject->isEnabled());
     }
 
-    public function testIsTemporalChecksDates() {
+    public function testIsTemporalChecksDates()
+    {
         $subject = new Enablement(false, new DateTime('-1 day'), new DateTime('+1 day'));
         $this->assertTrue($subject->isTemporal());
     }
 
-    public function testStartDateReturnsDateTime() {
+    public function testStartDateReturnsDateTime()
+    {
         $startDate = new DateTime('-1 day');
         $subject   = new Enablement(false, $startDate, new DateTime('+1 day'));
         $this->assertSame($startDate, $subject->startDate());
     }
 
-    public function testEndDateReturnsDateTime() {
+    public function testEndDateReturnsDateTime()
+    {
         $endDate = new DateTime('+1 day');
         $subject = new Enablement(false, new DateTime('-1 day'), $endDate);
         $this->assertSame($endDate, $subject->endDate());
     }
 
-    public function testDurationWithDates() {
+    public function testDurationWithDates()
+    {
         $subject = new Enablement(false, new DateTime('-1 day'), new DateTime('+1 day'));
         $this->assertInstanceOf('DateInterval', $subject->duration());
     }
 
-    public function testDurationWithoutDates() {
+    public function testDurationWithoutDates()
+    {
         $subject = new Enablement();
         $this->assertNull($subject->duration());
     }
