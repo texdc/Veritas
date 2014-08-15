@@ -15,17 +15,48 @@ use DomainException;
  *
  * @author George D. Cooksey, III
  */
-class EnablementDateException extends DomainException
+final class EnablementDateException extends DomainException
 {
+    /**#@+
+     * @var string
+     */
+    const POSITION_EQUAL   = 'equal';
+    const POSITION_FOLLOW  = 'follow';
+    const POSITION_PRECEED = 'preceed';
+    
+    const TYPE_END         = 'end';
+    const TYPE_START       = 'start';
+    /**#@- */
+    
+    /**
+     * @var string[]
+     */
+    private static $validPositions = [
+        self::POSITION_EQUAL,
+        self::POSITION_FOLLOW,
+        self::POSITION_PRECEED,
+    ];
+    
+    /**
+     * @var string[]
+     */
+    private static $validTypes = [
+        self::TYPE_END,
+        self::TYPE_START,
+    ];
+    
     /**
      * Build an invalid range exception
      *
      * @param  string $position preceed, follow, or equal
      * @return self
      */
-    public static function invalidRange($position = 'preceed')
+    public static function invalidRange($position = self::POSITION_PRECEED)
     {
-        return new static("The start date must $position the end date");
+        if (in_array($position, static::$validPositions)) {
+            return new static("The start date must $position the end date");
+        }
+        return new static("Invalid start or end date(s)");
     }
 
     /**
@@ -34,8 +65,11 @@ class EnablementDateException extends DomainException
      * @param  string $type the date type
      * @return self
      */
-    public static function missingDate($type)
+    public static function missingDate($type = self::TYPE_START)
     {
-        return new static("The $type date must be provided");
+        if (in_array($type, static::$validTypes)) {
+            return new static("The $type date must be provided");
+        }
+        return new static("Both start and end dates must be provided");
     }
 }
