@@ -2,7 +2,7 @@
 /**
  * bootstrap.php
  *
- * @copyright 2014 George D. Cooksey, III
+ * @copyright 2015 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
