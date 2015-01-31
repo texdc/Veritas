@@ -3,6 +3,8 @@ Veritas
 
 Identity and Access Control - simplified, but not anemic.
 
+#### WIP: currently experimental only
+
 [![Build Status](https://travis-ci.org/texdc/Veritas.png?branch=develop)](https://travis-ci.org/texdc/Veritas)
 [![Coverage Status](https://coveralls.io/repos/texdc/Veritas/badge.png?branch=develop)](https://coveralls.io/r/texdc/Veritas?branch=develop)
 

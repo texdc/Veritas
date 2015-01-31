@@ -1,14 +1,15 @@
 {
     "name": "texdc/veritas",
     "description": "Identity and Access Control - Simplified, but not anemic",
+    "keywords": ["identity", "access", "iam", "ddd"],
     "license": "MIT",
     "require": {
         "php": "~5.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0",
+        "phpunit/phpunit": "@stable",
         "phpmd/phpmd": "~1.4",
-        "squizlabs/php_codesniffer": "~1.4",
+        "squizlabs/php_codesniffer": "~2.0",
         "satooshi/php-coveralls": "~0.6"
     },
     "suggest": {
