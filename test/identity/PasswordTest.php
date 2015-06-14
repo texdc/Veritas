@@ -6,11 +6,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace VeritasTest\Identity;
+namespace texdc\veritas\test\identity;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_MockObject_Matcher_Invocation as Matcher;
-use Veritas\Identity\Password;
+use texdc\veritas\identity\Password;
 
 class PasswordTest extends TestCase
 {
@@ -20,13 +20,13 @@ class PasswordTest extends TestCase
 
     public function testClassExists()
     {
-        $this->assertTrue(class_exists('Veritas\Identity\Password'));
+        $this->assertTrue(class_exists('texdc\veritas\identity\Password'));
     }
 
     public function testClassImplementsCredential()
     {
         $subject = new Password(static::PLAIN_TEXT, $this->getCryptoService($this->once()));
-        $this->assertInstanceOf('Veritas\Identity\CredentialInterface', $subject);
+        $this->assertInstanceOf('texdc\veritas\identity\CredentialInterface', $subject);
     }
 
     public function testConstructEncryptsValue()
@@ -67,7 +67,7 @@ class PasswordTest extends TestCase
 
     protected function getCryptoService(Matcher $matcher)
     {
-        $crypto = $this->getMockForAbstractClass('Veritas\Identity\CryptoServiceInterface');
+        $crypto = $this->getMockForAbstractClass('texdc\veritas\identity\CryptoServiceInterface');
         $crypto
             ->expects($matcher)
             ->method('encrypt')

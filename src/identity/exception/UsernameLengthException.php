@@ -6,7 +6,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace Veritas\Identity\Exception;
+namespace texdc\veritas\identity\exception;
 
 use DomainException;
 

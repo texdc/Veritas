@@ -16,13 +16,9 @@
         "texdc/momento": "Momento for domain events"
     },
     "autoload": {
-        "psr-4": {
-            "Veritas\\": "src/"
-        }
+        "psr-4": { "texdc\\veritas\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": {
-            "VeritasTest\\": "test/"
-        }
+        "psr-4": { "texdc\\veritas\\test\\": "test/" }
     }
 }

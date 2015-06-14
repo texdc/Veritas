@@ -6,12 +6,12 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace Veritas\Identity;
+namespace texdc\veritas\identity;
 
 use DateTime;
 use JsonSerializable;
 use Serializable;
-use Veritas\Identity\Exception\EnablementDateException;
+use texdc\veritas\identity\exception\EnablementDateException;
 
 /**
  * Defines an enabled state for a given range of dates

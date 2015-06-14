@@ -12,8 +12,8 @@ Passwords and Validation
 ------------------------
 
 ```php
-use Veritas\Identity\CryptoService;
-use Veritas\Identity\Password;
+use texdc\veritas\identity\CryptoServiceInterface;
+use texdc\veritas\identity\Password;
 
 class User
 {
@@ -29,7 +29,7 @@ class User
         return $this->password;
     }
     
-    public function changePassword($newPassword, CryptoService $cryptoService = null)
+    public function changePassword($newPassword, CryptoServiceInterface $cryptoService = null)
     {
         $cryptoService = $cryptoService ?: $this->password->cryptoService();
         $this->setPassword(new Password($newPassword, $cryptoService));
