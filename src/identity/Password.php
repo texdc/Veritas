@@ -6,7 +6,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace Veritas\Identity;
+namespace texdc\veritas\identity;
 
 /**
  * Encrypt and verify a plain text string with a crypto service.
@@ -41,7 +41,7 @@ class Password implements CredentialInterface
 
     /**
      * (non-PHPdoc)
-     * @see \Veritas\Identity\Credential::verify()
+     * @see \texdc\veritas\identity\Credential::verify()
      */
     public function verify($plainTextValue)
     {

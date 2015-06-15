@@ -6,15 +6,14 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace VeritasTest\Identity;
+namespace texdc\veritas\test\identity;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Veritas\Identity\Enablement;
-use VeritasTest\Identity\TestAsset\TestableEnabled;
+use texdc\veritas\identity\Enablement;
 
 class EnabledTraitTest extends TestCase
 {
-    const TRAIT_FQCN = 'Veritas\Identity\EnabledTrait';
+    const TRAIT_FQCN = 'texdc\veritas\identity\EnabledTrait';
 
     public function testTraitExists()
     {
@@ -29,7 +28,7 @@ class EnabledTraitTest extends TestCase
 
     public function testIsEnabledChecksDefinedEnablement()
     {
-        $subject = new TestableEnabled();
+        $subject = new asset\TestableEnabled();
         $subject->defineEnablement(new Enablement(false));
         $this->assertFalse($subject->isEnabled());
     }

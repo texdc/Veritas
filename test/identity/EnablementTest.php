@@ -6,17 +6,17 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace VeritasTest\Identity;
+namespace texdc\veritas\test\identity;
 
 use DateTime;
 use PHPUnit_Framework_TestCase as TestCase;
-use Veritas\Identity\Enablement;
+use texdc\veritas\identity\Enablement;
 
 class EnablementTest extends TestCase
 {
     public function testClassExists()
     {
-        $this->assertTrue(class_exists('Veritas\Identity\Enablement'));
+        $this->assertTrue(class_exists('texdc\veritas\identity\Enablement'));
     }
 
     public function testIsASerializable()
@@ -32,7 +32,7 @@ class EnablementTest extends TestCase
     public function testConstructRequiresEndDateWithStartDate()
     {
         $this->setExpectedException(
-            'Veritas\Identity\Exception\EnablementDateException',
+            'texdc\veritas\identity\exception\EnablementDateException',
             "The end date must be provided"
         );
         new Enablement(false, new DateTime);
@@ -41,7 +41,7 @@ class EnablementTest extends TestCase
     public function testConstructRequiresStartDateWithEndDate()
     {
         $this->setExpectedException(
-            'Veritas\Identity\Exception\EnablementDateException',
+            'texdc\veritas\identity\exception\EnablementDateException',
             "The start date must be provided"
         );
         new Enablement(true, null, new DateTime);
@@ -50,7 +50,7 @@ class EnablementTest extends TestCase
     public function testConstructRequiresValidDates()
     {
         $this->setExpectedException(
-            'Veritas\Identity\Exception\EnablementDateException',
+            'texdc\veritas\identity\exception\EnablementDateException',
             'The start date must preceed the end date'
         );
         new Enablement(false, new DateTime, new DateTime('-1 day'));
@@ -61,7 +61,7 @@ class EnablementTest extends TestCase
         $startDate = new DateTime('-1 day');
         $endDate   = new DateTime('+1 day');
         $subject   = new Enablement(true, $startDate, $endDate);
-        $this->assertInstanceOf('Veritas\Identity\Enablement', $subject);
+        $this->assertInstanceOf('texdc\veritas\identity\Enablement', $subject);
     }
 
     public function testIsValidChecksEnabledState()

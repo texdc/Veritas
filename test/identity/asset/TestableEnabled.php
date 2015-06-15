@@ -6,14 +6,14 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace VeritasTest\Identity\TestAsset;
+namespace texdc\veritas\test\identity\asset;
 
-use Veritas\Identity\Enablement;
-use Veritas\Identity\EnabledInterface;
+use texdc\veritas\identity\Enablement;
+use texdc\veritas\identity\EnabledInterface;
 
 class TestableEnabled implements EnabledInterface
 {
-    use \Veritas\Identity\EnabledTrait;
+    use \texdc\veritas\identity\EnabledTrait;
 
     public function defineEnablement(Enablement $anEnablement)
     {
