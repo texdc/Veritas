@@ -2,14 +2,14 @@
 /**
  * autoload.php
  *
- * @copyright 2014 George D. Cooksey, III
+ * Include this file in your bootstrap script if not using composer.
+ *
+ * @copyright 2015 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-// Include this file in your bootstrap script if not using composer.
-
 spl_autoload_register(function ($className) {
-    $prefix = 'Veritas\\';
+    $prefix = 'texdc\\veritas\\';
     $length = strlen($prefix);
 
     // ignore other namespaces
@@ -24,8 +24,8 @@ spl_autoload_register(function ($className) {
     $filename  = __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
     $filename .= str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
 
-    // require the class' file if found and readable
+    // include the class' file if found and readable
     if (is_readable($filename)) {
-        require $filename;
+        include_once $filename;
     }
 });
