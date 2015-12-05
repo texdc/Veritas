@@ -8,9 +8,9 @@
     },
     "require-dev": {
         "phpunit/phpunit": "@stable",
-        "phpmd/phpmd": "~1.4",
-        "squizlabs/php_codesniffer": "~2.0",
-        "satooshi/php-coveralls": "~0.6"
+        "phpmd/phpmd": "@stable",
+        "squizlabs/php_codesniffer": "@stable",
+        "satooshi/php-coveralls": "@stable"
     },
     "suggest": {
         "texdc/range": "range for rich enablements",
