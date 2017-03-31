@@ -24,34 +24,18 @@ class User
     
     // ...
     
-    public function password()
+    public function changePassword(string $aPassword, CryptoServiceInterface $aCryptoService)
     {
-        return $this->password;
-    }
-    
-    public function changePassword($newPassword, CryptoServiceInterface $cryptoService = null)
-    {
-        $cryptoService = $cryptoService ?: $this->password->cryptoService();
-        $this->setPassword(new Password($newPassword, $cryptoService));
+        $this->setPassword(new Password($aCryptoService->encrypt($aPassword)));
         $this->eventService->publish(new PasswordChangedEvent($this->userId));
     }
     
-    public function verifyPassword(Password $password)
+    protected function setPassword(Password $aPassword)
     {
-        return $this->password->equals($password);
-    }
-    
-    public function verifyTextPassword($textPassword)
-    {
-        return $this->password->verify($textPassword);
-    }
-    
-    protected function setPassword(Password $password)
-    {
-        if ($this->verifyPassword($password)) {
+        if ($this->password == $aPassword) {
             throw new IdenticalPasswordException;
         }
-        $this->password = $password;
+        $this->password = $aPassword;
     }
     
     // ...
