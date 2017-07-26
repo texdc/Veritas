@@ -2,22 +2,22 @@
 /**
  * Password.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2015 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace Veritas\Identity;
+namespace texdc\veritas\identity;
 
 /**
  * Encrypt and verify a plain text string with a crypto service.
  *
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
-class Password implements Credential
+class Password implements CredentialInterface
 {
 
     /**
-     * @var CryptoService
+     * @var CryptoServiceInterface
      */
     private $cryptoService;
 
@@ -33,7 +33,7 @@ class Password implements Credential
      * @param string        $plainTextValue
      * @param CryptoService $cryptoService
      */
-    public function __construct($plainTextValue, CryptoService $cryptoService)
+    public function __construct($plainTextValue, CryptoServiceInterface $cryptoService)
     {
         $this->cryptoService  = $cryptoService;
         $this->encryptedValue = $cryptoService->encrypt($plainTextValue);
@@ -41,7 +41,7 @@ class Password implements Credential
 
     /**
      * (non-PHPdoc)
-     * @see \Veritas\Identity\Credential::verify()
+     * @see \texdc\veritas\identity\Credential::verify()
      */
     public function verify($plainTextValue)
     {
@@ -76,7 +76,7 @@ class Password implements Credential
     /**
      * Get the crypto service
      *
-     * @return CryptoService
+     * @return CryptoServiceInterface
      */
     public function cryptoService()
     {

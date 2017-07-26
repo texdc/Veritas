@@ -1,12 +1,12 @@
 <?php
 /**
- * CryptoService.php
+ * CryptoServiceInterface.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2015 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace Veritas\Identity;
+namespace texdc\veritas\identity;
 
 /**
  * A segregated interface for crypto services
@@ -14,9 +14,9 @@ namespace Veritas\Identity;
  * Implement a bridge class with this interface to integrate the crypto library of
  * your choice.
  *
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
-interface CryptoService
+interface CryptoServiceInterface
 {
     /**
      * Encrypt a plainText value

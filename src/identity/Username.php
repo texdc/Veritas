@@ -2,13 +2,13 @@
 /**
  * Username.php
  *
- * @copyright 2014 George D. Cooksey, III
+ * @copyright 2015 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace Veritas\Identity;
+namespace texdc\veritas\identity;
 
-use Veritas\Identity\Exception\UsernameLengthException;
+use texdc\veritas\identity\exception\UsernameLengthException;
 
 /**
  * Wrap a string as a username credential.
@@ -17,7 +17,7 @@ use Veritas\Identity\Exception\UsernameLengthException;
  *
  * @author George D. Cooksey, III
  */
-class Username implements Credential
+class Username implements CredentialInterface
 {
     /**#@+
      * Length constraints

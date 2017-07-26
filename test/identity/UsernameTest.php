@@ -2,25 +2,25 @@
 /**
  * UsernameTest.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2015 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace VeritasTest\Identity;
+namespace texdc\veritas\test\identity;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Veritas\Identity\Username;
+use texdc\veritas\identity\Username;
 
 class UsernameTest extends TestCase
 {
     public function testClassExists()
     {
-        $this->assertTrue(class_exists('Veritas\Identity\Username'));
+        $this->assertTrue(class_exists('texdc\veritas\identity\Username'));
     }
 
     public function testClassImplementsCredential()
     {
-        $this->assertInstanceOf('Veritas\Identity\Credential', new Username('username'));
+        $this->assertInstanceOf('texdc\veritas\identity\CredentialInterface', new Username('username'));
     }
 
     public function testConstructSetsValue()
@@ -31,13 +31,13 @@ class UsernameTest extends TestCase
 
     public function testConstructChecksMinimumLength()
     {
-        $this->setExpectedException('Veritas\Identity\Exception\UsernameLengthException');
+        $this->setExpectedException('texdc\veritas\identity\exception\UsernameLengthException');
         new Username('bad');
     }
 
     public function testConstructChecksMaximumLength()
     {
-        $this->setExpectedException('Veritas\Identity\Exception\UsernameLengthException');
+        $this->setExpectedException('texdc\veritas\identity\exception\UsernameLengthException');
         new Username(
             'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
             . 'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
@@ -49,7 +49,7 @@ class UsernameTest extends TestCase
         $subject = new Username('username');
         $this->assertEquals('username', (string) $subject);
     }
-    
+
     public function testEqualsReturnsBool()
     {
         $subject = new Username('username');

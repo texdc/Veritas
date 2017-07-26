@@ -1,19 +1,19 @@
 <?php
 /**
- * Credential.php
+ * CredentialInterface.php
  *
- * @copyright 2013 George D. Cooksey, III
+ * @copyright 2015 George D. Cooksey, III
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-namespace Veritas\Identity;
+namespace texdc\veritas\identity;
 
 /**
  * Used to authenticate an identity
  *
- * @author George D. Cooksey, III <texdc3@gmail.com>
+ * @author George D. Cooksey, III
  */
-interface Credential
+interface CredentialInterface
 {
     /**
      * Verify that a value is valid

@@ -1,9 +1,10 @@
 {
     "name": "texdc/veritas",
-    "description": "Identity and Access Control",
+    "description": "Identity and Access Control - Simplified, but not anemic",
+    "keywords": ["identity", "access", "iam", "ddd"],
     "license": "MIT",
     "require": {
-	"php": "~5.4"
+        "php": "~5.4 || ~7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "@stable",
@@ -12,11 +13,13 @@
         "satooshi/php-coveralls": "@stable"
     },
     "suggest": {
-	"texdc/momento": "Momento for domain events"
+        "texdc/range": "range for rich enablements",
+        "texdc/momento": "Momento for domain events"
     },
     "autoload": {
-	"psr-0": {
-	    "Veritas\\": "src/"
-	}
+        "psr-4": { "texdc\\veritas\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "texdc\\veritas\\test\\": "test/" }
     }
 }

@@ -3,15 +3,17 @@ Veritas
 
 Identity and Access Control - simplified, but not anemic.
 
-[![Build Status](https://travis-ci.org/texdc/Veritas.png?branch=master)](https://travis-ci.org/texdc/Veritas)
-[![Coverage Status](https://coveralls.io/repos/texdc/Veritas/badge.png)](https://coveralls.io/r/texdc/Veritas)
+#### WIP: currently experimental only
+
+[![Build Status](https://travis-ci.org/texdc/Veritas.png?branch=develop)](https://travis-ci.org/texdc/Veritas)
+[![Coverage Status](https://coveralls.io/repos/texdc/Veritas/badge.png?branch=develop)](https://coveralls.io/r/texdc/Veritas?branch=develop)
 
 Passwords and Validation
 ------------------------
 
 ```php
-use Veritas\Identity\CryptoService;
-use Veritas\Identity\Password;
+use texdc\veritas\identity\CryptoServiceInterface;
+use texdc\veritas\identity\Password;
 
 class User
 {
@@ -22,34 +24,18 @@ class User
     
     // ...
     
-    public function password()
+    public function changePassword(string $aPassword, CryptoServiceInterface $aCryptoService)
     {
-        return $this->password;
-    }
-    
-    public function changePassword($newPassword, CryptoService $cryptoService = null)
-    {
-        $cryptoService = $cryptoService ?: $this->password->cryptoService();
-        $this->setPassword(new Password($newPassword, $cryptoService));
+        $this->setPassword(new Password($aCryptoService->encrypt($aPassword)));
         $this->eventService->publish(new PasswordChangedEvent($this->userId));
     }
     
-    public function verifyPassword(Password $password)
+    protected function setPassword(Password $aPassword)
     {
-        return $this->password->equals($password);
-    }
-    
-    public function verifyTextPassword($textPassword)
-    {
-        return $this->password->verify($textPassword);
-    }
-    
-    protected function setPassword(Password $password)
-    {
-        if ($this->verifyPassword($password)) {
+        if ($this->password == $aPassword) {
             throw new IdenticalPasswordException;
         }
-        $this->password = $password;
+        $this->password = $aPassword;
     }
     
     // ...
